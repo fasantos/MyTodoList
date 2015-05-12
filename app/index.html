@@ -2,31 +2,56 @@
 <!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="todo" class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>My AngularJS App</title>
-  <meta name="description" content="">
+  <meta name="description" content="Angularjs app to store my to do list">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
-  <link rel="stylesheet" href="app.css">
-  <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-  <ul class="menu">
-    <li><a href="#/view1">view1</a></li>
-    <li><a href="#/view2">view2</a></li>
-  </ul>
 
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-  <div ng-view></div>
+  <section id="todoapp" ng-controller="TodoCtrl">
+    <header id="header">
+      <h1>Todo List</h1>
+        <form action="#" id="todo-form" ng-submit="addTodo()">
+          <input id="new-todo" type="text" placeholder="{{placeholder}}" autofocus autocomplete="off" ng-model="newtodo"></input>
+        </form>
+    </header><!-- /header -->
 
-  <div>Angular seed app: v<span app-version></span></div>
+    <section id="main">
+      <input type="checkbox" id="toggle-all" ng-model="allchecked" ng-click="checkAllTodo(allchecked)">
+      <ul id="todo-list">
+        <li ng-repeat="todo in todos | filter: statusFilter | orderBy:'completed'" ng-class="{completed : todo.completed, editing: todo.editing}" ng-dblclick="todo.editing = true">
+          <div class="view">
+            <input class="toggle"type="checkbox" ng-model="todo.completed">
+              <label>{{todo.name}}</label>
+              <button class="destroy" ng-click="removeTodo($index)"></button>
+            </input>
+          </div>
+          <form action="#">
+            <input class="edit" ng-model="todo.name" ng-blur="editTodo(todo)">
+          </form>
+        </li>
+      </ul>    
+    </section>
+
+    <footer id="footer">
+      <span id="todo-count"><strong>{{remaining}}</strong> Todo left</span>
+      <ul id="filters">
+        <li> <a href="#/" ng-class="{selected: location.path() == '/'}">All</a> </li>
+        <li> <a href="#/active" ng-class="{selected: location.path() == '/active'}">Active</a> </li>
+        <li> <a href="#/done" ng-class="{selected: location.path() == '/done'}">Done</a> </li>
+      </ul>
+    </footer>    
+  </section>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
@@ -34,8 +59,6 @@
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="app.js"></script>
-  <script src="view1/view1.js"></script>
-  <script src="view2/view2.js"></script>
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
