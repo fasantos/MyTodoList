@@ -37,8 +37,8 @@ app.controller('TodoCtrl', function ($scope, filterFilter, $http, $location) {
 
 	});
 
-	$scope.removeTodo = function(index) {
-		$scope.todos.splice(index, 1);
+	$scope.removeTodo = function(todo) {
+		$scope.todos.splice($scope.todos.indexOf(todo), 1);
 	};
 
 	$scope.addTodo = function() {

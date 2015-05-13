@@ -21,7 +21,7 @@
   <section id="todoapp" ng-controller="TodoCtrl">
     <header id="header">
       <h1>Todo List</h1>
-        <form action="#" id="todo-form" ng-submit="addTodo()">
+        <form id="todo-form" ng-submit="addTodo()">
           <input id="new-todo" type="text" placeholder="{{placeholder}}" autofocus autocomplete="off" ng-model="newtodo"></input>
         </form>
     </header><!-- /header -->
@@ -32,8 +32,8 @@
         <li ng-repeat="todo in todos | filter: statusFilter | orderBy:'completed'" ng-class="{completed : todo.completed, editing: todo.editing}" ng-dblclick="todo.editing = true">
           <div class="view">
             <input class="toggle"type="checkbox" ng-model="todo.completed">
-              <label>{{todo.name}}</label>
-              <button class="destroy" ng-click="removeTodo($index)"></button>
+              <label>{{todo.name}})</label>
+              <button class="destroy" ng-click="removeTodo(todo)"></button>
             </input>
           </div>
           <form action="#">
