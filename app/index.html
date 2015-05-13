@@ -32,7 +32,7 @@
         <li ng-repeat="todo in todos | filter: statusFilter | orderBy:'completed'" ng-class="{completed : todo.completed, editing: todo.editing}" ng-dblclick="todo.editing = true">
           <div class="view">
             <input class="toggle"type="checkbox" ng-model="todo.completed">
-              <label>{{todo.name}})</label>
+              <label>{{todo.name}}</label>
               <button class="destroy" ng-click="removeTodo(todo)"></button>
             </input>
           </div>
